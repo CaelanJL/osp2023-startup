@@ -7,13 +7,13 @@ FILES = driver.cpp loader.cpp simulator.cpp pcb.cpp
 all: fifo sjf rr
 
 fifo:
-    $(CC) $(CFLAGS) -o fifo $(FILES)
+	$(CC) $(CFLAGS) -o fifo $(FILES)
 
 sjf:
-    $(CC) $(CFLAGS) -o sjf $(FILES)
+	$(CC) $(CFLAGS) -o sjf $(FILES)
 
 rr:
-    $(CC) $(CFLAGS) -o rr $(FILES)
+	$(CC) $(CFLAGS) -o rr $(FILES)
 
 clean:
-    rm -f fifo sjf rr
+	rm -f fifo sjf rr

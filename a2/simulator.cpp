@@ -22,7 +22,7 @@ pcb* Simulator::getNextSJF() {
     pcb* shortestProcess = &processes->front();
 
     // Iterate through the processes to find the shortest
-    for (int i = 0; i < processes->size(); i++) {
+    for (size_t i = 0; i < processes->size(); i++) {
         if (processes->at(i).burstTime < shortestProcess->burstTime) {
             shortestProcess = &processes->at(i);
         }
