@@ -31,7 +31,6 @@ bool checkArgCount(int argc, std::string schedulerType) {
  * @return true if the arguments are valid, false otherwise
  */
 bool validateArgs(int argc, char* argv[], std::string schedulerType) {
-    cout << schedulerType << endl << "helloo";
 
     // Check that the scheduler type is valid
     if (schedulerType != "rr" && schedulerType != "fifo" && schedulerType != "sjf") {
@@ -43,6 +42,7 @@ bool validateArgs(int argc, char* argv[], std::string schedulerType) {
     if (!checkArgCount(argc, schedulerType)) {
         return false;
     }
+
 
     // Check that the file exists
     ifstream input_file(argv[argc - 1]);
@@ -83,6 +83,7 @@ int main(int argc, char* argv[]) {
     // Validate the command line arguments
     bool valid = validateArgs(argc, argv, schedulerStr);
 
+
     // Run the simulation if the arguments are valid
     if (valid) {
 
@@ -103,6 +104,7 @@ int main(int argc, char* argv[]) {
         }
         simulator.run(schedulerStr, quantum);
     }
+
 
     // Return 0 if the arguments are valid, 1 if they are not
     return !valid;

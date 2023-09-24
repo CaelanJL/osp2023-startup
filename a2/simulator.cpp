@@ -1,8 +1,8 @@
 #include "simulator.h"
 
 // Constructor
-Simulator::Simulator(std::vector<pcb> processes) {
-    processes = processes;
+Simulator::Simulator(std::vector<pcb>& processes) {
+    this->processes = &processes;
 }
 
 /// Scheduler algorithms
@@ -96,7 +96,9 @@ void Simulator::run(std::string scheduler, int quantum) {
         timePassed += executionTime;
 
         // Run the process for the execution time
-        nextProcess->timeUsed += executionTime;
+        nextProcess->timeUsed = nextProcess->timeUsed + executionTime;
+        std::cout << "execution time: " << executionTime << std::endl;
+        std::cout << "time used before removal and pushing: " << nextProcess->timeUsed << std::endl;
 
         // Set the total wait time
         nextProcess->totalWaitTime = timePassed - nextProcess->timeUsed;
@@ -111,15 +113,22 @@ void Simulator::run(std::string scheduler, int quantum) {
             }
         }
 
+        
         // remove process at index i of processes
-        processes->erase(processes->begin() + processIndex);
+        auto processIterator = processes->begin() + processIndex;
+
+        // make sure the pointer points to the original object not the position in the vector?
+        pcb processCopy = *nextProcess;
+        processes->erase(processIterator);
 
         // Add the process back to the end of vector if it is not done
-        if (nextProcess->timeUsed < nextProcess->burstTime) {
-            processes->push_back(*nextProcess);
+        if (processCopy.timeUsed < processCopy.burstTime) {
+            // std::cout << "adding back item" << std::endl;
+            
+            processes->push_back(processCopy);
         } else {
-            nextProcess->completionTime = timePassed;
-            completedProcesses.push_back(*nextProcess);
+            processCopy.completionTime = timePassed;
+            completedProcesses.push_back(processCopy);
         }
     }
 

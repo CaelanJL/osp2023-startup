@@ -8,7 +8,7 @@
 class Simulator
 {
     public:
-        Simulator(std::vector<pcb> processes);
+        Simulator(std::vector<pcb>& processes);
         pcb* getNextFIFO();
         pcb* getNextSJF();
         pcb* getNextRR();
