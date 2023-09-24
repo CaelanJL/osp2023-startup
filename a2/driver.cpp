@@ -16,10 +16,10 @@ using std::stoi;
 bool checkArgCount(int argc, std::string schedulerType) {
 
     // Check that the number of arguments is correct for the scheduler type
-    if (schedulerType == "rr" && argc != 4) {
+    if (schedulerType == "rr" && argc != 3) {
         cout << "Error: Schedule type rr expects 2 arguments got " << argc - 1 << ", Usage: ./rr <quantum (time in ms)> <datafile>" << endl;
         return false;
-    } else if (schedulerType != "rr" && argc != 3) {
+    } else if (schedulerType != "rr" && argc != 2) {
         cout << "Error: Schedule type <fifo, sjr> expects 1 argument got " << argc - 1 << ", Usage: ./<fifo, sjf> <datafile>" << endl;
         return false;
     }
@@ -31,11 +31,11 @@ bool checkArgCount(int argc, std::string schedulerType) {
  * @return true if the arguments are valid, false otherwise
  */
 bool validateArgs(int argc, char* argv[], std::string schedulerType) {
-    cout << schedulerType << std::endl;
+    cout << schedulerType << endl << "helloo";
 
     // Check that the scheduler type is valid
     if (schedulerType != "rr" && schedulerType != "fifo" && schedulerType != "sjf") {
-        cout << "Error: Invalid scheduler '" << argv[1] << "', expected fifo, sjf or rr" << endl;
+        cout << "Error: Invalid scheduler '" << argv[0] << "', expected fifo, sjf or rr" << endl;
         return false;
     }
 
@@ -53,20 +53,20 @@ bool validateArgs(int argc, char* argv[], std::string schedulerType) {
     input_file.close();
 
     // Check that the quantum is valid
-    if (argc == 4) {
+    if (argc == 3) {
 
         std::size_t pos;
 
         try {
             // Convert the quantum to an int
-            int quantum = stoi(argv[2], &pos);
+            int quantum = stoi(argv[1], &pos);
 
             // Check that the quantum is valid
-            if (pos < std::string(argv[2]).size() || quantum < 1) {
+            if (pos < std::string(argv[1]).size() || quantum < 1) {
                 throw std::invalid_argument("");
             }
         } catch (const std::invalid_argument&) {
-            cout << "Error: Invalid quantum '" << argv[2] << "', expected positive integer" << endl;
+            cout << "Error: Invalid quantum '" << argv[1] << "', expected positive integer" << endl;
             return false;
         }
     }
@@ -78,7 +78,7 @@ bool validateArgs(int argc, char* argv[], std::string schedulerType) {
 int main(int argc, char* argv[]) {
 
     // Get the scheduler type based on the program name
-    string schedulerStr = string(argv[1]);
+    string schedulerStr = string(argv[0]).substr(2);
 
     // Validate the command line arguments
     bool valid = validateArgs(argc, argv, schedulerStr);
@@ -99,7 +99,7 @@ int main(int argc, char* argv[]) {
         // Run the simulation
         int quantum = 10;
         if (schedulerStr == "rr") {
-            quantum = stoi(argv[2]);
+            quantum = stoi(argv[1]);
         }
         simulator.run(schedulerStr, quantum);
     }
