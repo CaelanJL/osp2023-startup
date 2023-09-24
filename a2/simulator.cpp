@@ -22,7 +22,7 @@ pcb* Simulator::getNextSJF() {
     pcb* shortestProcess = &processes->front();
 
     // Iterate through the processes to find the shortest
-    for (size_t i = 0; i < processes->size(); i++) {
+    for (int i = 0; i < processes->size(); i++) {
         if (processes->at(i).burstTime < shortestProcess->burstTime) {
             shortestProcess = &processes->at(i);
         }
@@ -102,7 +102,16 @@ void Simulator::run(std::string scheduler, int quantum) {
         nextProcess->totalWaitTime = timePassed - nextProcess->timeUsed;
 
         // remove nextProcess from processes
-        processes->erase(std::remove(processes->begin(), processes->end(), *nextProcess), processes->end());
+        // Get the index of nextProcess in processes
+        int i = 0;
+        for (; i < processes->size(); i++) {
+            if (processes->at(i).processID == nextProcess->processID) {
+                break;
+            }
+        }
+
+        // remove process at index i of processes
+        processes->erase(processes->begin() + i);
 
         // Add the process back to the end of vector if it is not done
         if (nextProcess->timeUsed < nextProcess->burstTime) {
