@@ -4,16 +4,11 @@ CC = g++
 CFLAGS = -Wall -Werror -std=c++20
 FILES = driver.cpp loader.cpp simulator.cpp pcb.cpp
 
-all: fifo sjf rr
+all: scheduler
 
-fifo:
-	$(CC) $(CFLAGS) -o fifo $(FILES)
+scheduler:
+	$(CC) $(CFLAGS) -o scheduler $(FILES)
 
-sjf:
-	$(CC) $(CFLAGS) -o sjf $(FILES)
-
-rr:
-	$(CC) $(CFLAGS) -o rr $(FILES)
 
 clean:
-	rm -f fifo sjf rr
+	rm -f scheduler

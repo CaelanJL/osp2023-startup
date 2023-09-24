@@ -1,3 +1,6 @@
+#ifndef LOADER
+#define LOADER
+
 #include <string>
 #include <vector>
 #include <fstream>
@@ -18,3 +21,5 @@ class Loader {
     // destructor
     ~Loader();
 };
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef TYPES
+#define TYPES
+
 #include <string>
 #pragma once
 namespace osp2023 {
@@ -5,5 +8,7 @@ namespace osp2023 {
 using time_type = long long;
 using id_type = int;
 // constant that can be used to initialise a time to not having been set
-extern constexpr time_type time_not_set = -1;
+// extern constexpr time_type time_not_set = -1;
 }
+
+#endif

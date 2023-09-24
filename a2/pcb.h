@@ -1,3 +1,6 @@
+#ifndef PCB
+#define PCB
+
 #include <iostream>
 #include "types.h"
 
@@ -40,3 +43,5 @@ class pcb {
     static constexpr osp2023::time_type MAX_DURATION = 100;
     static constexpr osp2023::time_type MIN_DURATION = 10;
 };
+
+#endif

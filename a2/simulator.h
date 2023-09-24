@@ -1,3 +1,6 @@
+#ifndef SIMULATOR
+#define SIMULATOR
+
 #include <vector>
 #include "pcb.h"
 
@@ -5,7 +8,7 @@
 class Simulator
 {
     public:
-        Simulator(std::vector<pcb>* processes);
+        Simulator(std::vector<pcb> processes);
         pcb* getNextFIFO();
         pcb* getNextSJF();
         pcb* getNextRR();
@@ -17,3 +20,5 @@ class Simulator
         std::vector<pcb> completedProcesses;
         int timePassed;
 };
+
+#endif
