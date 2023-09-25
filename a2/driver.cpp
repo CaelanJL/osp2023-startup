@@ -37,7 +37,7 @@ int main(int argc, char* argv[]) {
     file.close();
 
     // run simulating code
-    simulator.run(schedulerStr, quantum);
+    simulator.simulate(schedulerStr, quantum);
 
 
     return EXIT_SUCCESS;

@@ -9,11 +9,10 @@ class Simulator
 {
     public:
         Simulator(std::vector<pcb>& processes);
-        pcb* getNextFIFO();
-        pcb* getNextSJF();
-        pcb* getNextRR();
-        void run(std::string scheduler, int quantum = 10);
-        void printResults();
+        pcb* retrieveFIFO();
+        pcb* retrieveSJF();
+        pcb* retrieveRR();
+        void simulate(std::string scheduler, int quantum = 10);
 
     private:
         std::vector<pcb>* processes;

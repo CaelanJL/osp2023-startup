@@ -4,14 +4,13 @@ Simulator::Simulator(std::vector<pcb>& processes) {
     this->processes = &processes;
 }
 
-pcb* Simulator::getNextFIFO() {
+pcb* Simulator::retrieveFIFO() {
     return &processes->front();
 }
 
-pcb* Simulator::getNextSJF() {
+pcb* Simulator::retrieveSJF() {
     pcb* shortestProcess = &processes->front();
 
-    // Iterate through the processes to find the shortest
     for (size_t i = 0; i < processes->size(); i++) {
         if (processes->at(i).burstTime < shortestProcess->burstTime) {
             shortestProcess = &processes->at(i);
@@ -21,11 +20,11 @@ pcb* Simulator::getNextSJF() {
     return shortestProcess;
 }
 
-pcb* Simulator::getNextRR() {
+pcb* Simulator::retrieveRR() {
     return &processes->front();
 }
 
-void Simulator::run(std::string scheduler, int quantum) {
+void Simulator::simulate(std::string scheduler, int quantum) {
 
     int timePassed = 0;
 
@@ -35,11 +34,11 @@ void Simulator::run(std::string scheduler, int quantum) {
 
         pcb* nextProcess;
         if (scheduler == "fifo") {
-            nextProcess = getNextFIFO();
+            nextProcess = retrieveFIFO();
         } else if (scheduler == "sjf") {
-            nextProcess = getNextSJF();
+            nextProcess = retrieveSJF();
         } else if (scheduler == "rr") {
-            nextProcess = getNextRR();
+            nextProcess = retrieveRR();
         } else {
             std::cout << "Error: Invalid scheduler '" << scheduler << "'" << std::endl;
             return;
